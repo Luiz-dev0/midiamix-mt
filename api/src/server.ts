@@ -3,6 +3,7 @@ import fastifyStatic from "@fastify/static";
 import path from "node:path";
 import { exec } from "node:child_process";
 import { prisma } from "./db";
+import cors from "@fastify/cors";
 
 const app = Fastify({ logger: true });
 
@@ -14,7 +15,10 @@ app.register(fastifyStatic, {
 app.register(
   async (api) => {
     api.get("/health", async () => ({ status: "ok" }));
-
+    
+app.register(cors, {
+  origin: true, // em dev libera qualquer origem; ajustamos isso em producao
+});
     // Lista todas as categorias
     api.get("/categories", async () => {
       return prisma.category.findMany({
