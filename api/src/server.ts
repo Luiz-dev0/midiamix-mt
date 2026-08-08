@@ -8,7 +8,7 @@ import cors from "@fastify/cors";
 const app = Fastify({ logger: true });
 
 app.register(fastifyStatic, {
-  root: path.join(__dirname, "..", "..", "frontend", "out"),
+  root: path.join(__dirname, "..", "frontend", "out"),
   prefix: "/",
 });
 
