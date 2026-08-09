@@ -13,6 +13,12 @@ app.register(fastifyStatic, {
   extensions: ["html"],
 });
 
+app.setNotFoundHandler((request, reply) => {
+  const urlPath = request.url.split("?")[0];
+  const htmlPath = urlPath.replace(/\/$/, "") + ".html";
+  reply.sendFile(htmlPath);
+});
+
 app.register(
   async (api) => {
     api.get("/health", async () => ({ status: "ok" }));
