@@ -10,6 +10,7 @@ const app = Fastify({ logger: true });
 app.register(fastifyStatic, {
   root: path.join(__dirname, "..", "frontend", "out"),
   prefix: "/",
+  extensions: ["html"],
 });
 
 app.register(
