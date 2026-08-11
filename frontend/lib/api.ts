@@ -19,13 +19,14 @@ export type Artigo = {
 
 async function safeFetch<T>(url: string, fallback: T): Promise<T> {
   try {
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) return fallback;
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error(`Fetch falhou (${res.status}):`, url);
+      return fallback;
+    }
     return (await res.json()) as T;
-  } catch {
-    // API indisponivel no momento do build (ex: build da imagem Docker) —
-    // devolve o fallback pra nao quebrar o build. O rebuild real acontece
-    // em runtime, quando um artigo e publicado e a API ja esta no ar.
+  } catch (err) {
+    console.error("Erro de fetch durante build:", url, err);
     return fallback;
   }
 }
