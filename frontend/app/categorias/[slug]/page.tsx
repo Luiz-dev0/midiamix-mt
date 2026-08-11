@@ -2,6 +2,9 @@ import { getCategorias, getArtigos } from "../../../lib/api";
 
 export async function generateStaticParams() {
   const categorias = await getCategorias();
+  if (categorias.length === 0) {
+    return [{ slug: "placeholder" }];
+  }
   return categorias.map((cat) => ({ slug: cat.slug }));
 }
 

@@ -2,6 +2,9 @@ import { getArtigos, getArtigoPorSlug } from "../../../lib/api";
 
 export async function generateStaticParams() {
   const artigos = await getArtigos();
+  if (artigos.length === 0) {
+    return [{ slug: "placeholder" }];
+  }
   return artigos.map((a) => ({ slug: a.slug }));
 }
 
