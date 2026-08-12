@@ -7,6 +7,10 @@ import cors from "@fastify/cors";
 
 const app = Fastify({ logger: true });
 
+app.register(cors, {
+  origin: true, // em dev libera qualquer origem; ajustamos isso em producao
+});
+
 app.register(fastifyStatic, {
   root: path.join(__dirname, "..", "frontend", "out"),
   prefix: "/",
@@ -19,13 +23,39 @@ app.setNotFoundHandler((request, reply) => {
   reply.sendFile(htmlPath);
 });
 
+// Sitemap.xml na raiz do dominio (fora do prefixo /api, e' onde os
+// buscadores esperam encontrar)
+app.get("/sitemap.xml", async (request, reply) => {
+  const categorias = await prisma.category.findMany();
+  const artigos = await prisma.article.findMany({
+    where: { published: true },
+  });
+
+  const baseUrl = "https://midiamixmt.com.br";
+
+  const urls = [
+    `<url><loc>${baseUrl}/</loc></url>`,
+    ...categorias.map(
+      (cat) => `<url><loc>${baseUrl}/categorias/${cat.slug}</loc></url>`
+    ),
+    ...artigos.map(
+      (art) => `<url><loc>${baseUrl}/artigos/${art.slug}</loc></url>`
+    ),
+  ].join("\n");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>`;
+
+  reply.header("Content-Type", "application/xml");
+  return reply.send(xml);
+});
+
 app.register(
   async (api) => {
     api.get("/health", async () => ({ status: "ok" }));
-    
-app.register(cors, {
-  origin: true, // em dev libera qualquer origem; ajustamos isso em producao
-});
+
     // Lista todas as categorias
     api.get("/categories", async () => {
       return prisma.category.findMany({
