@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 
-const categorias = [
-  { nome: "Energia Solar", slug: "energia-solar" },
-  { nome: "Maquinário Agrícola", slug: "maquinario" },
-  { nome: "Veículos & Acessórios", slug: "veiculos" },
-  { nome: "Cidades de MT", slug: "cidades-mt" },
-];
+type Categoria = {
+  id: string;
+  name: string;
+  slug: string;
+};
 
-export default function SiteHeader() {
+export default function SiteHeader({ categorias }: { categorias: Categoria[] }) {
   const [aberto, setAberto] = useState(false);
 
   return (
@@ -74,7 +73,7 @@ export default function SiteHeader() {
               onClick={() => setAberto(false)}
               className="block px-3 py-2 rounded hover:bg-gray-100 transition"
             >
-              {cat.nome}
+              {cat.name}
             </a>
           ))}
         </nav>
