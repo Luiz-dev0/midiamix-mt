@@ -13,27 +13,31 @@ export default function SiteHeader({ categorias }: { categorias: Categoria[] }) 
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-orange-600 text-white">
-        <div className="flex items-center gap-4 px-4 h-14">
-          <button
-            onClick={() => setAberto(true)}
-            aria-label="Abrir menu"
-            className="p-2 -ml-2 rounded hover:bg-orange-700 transition"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M3 6h18M3 12h18M3 18h18"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
-          <a href="/" className="font-semibold text-lg tracking-tight">
-            MidiaMix MT
-          </a>
-        </div>
-      </header>
+      <header className="sticky top-0 z-50 bg-black text-white">
+  <div className="relative flex items-center px-4 h-16">
+    <button
+      onClick={() => setAberto(true)}
+      aria-label="Abrir menu"
+      className="p-2 -ml-2 rounded hover:bg-gray-800 transition z-10"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M3 6h18M3 12h18M3 18h18"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    </button>
+
+    <a
+      href="/"
+      className="absolute left-1/2 -translate-x-1/2"
+    >
+      <img src="/logo.svg" alt="MidiaMix MT" className="h-8" />
+    </a>
+  </div>
+</header>
 
       {aberto && (
         <div
