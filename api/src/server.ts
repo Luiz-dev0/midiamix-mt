@@ -75,6 +75,24 @@ app.register(
       }
     );
 
+    // Deleta uma categoria
+    api.delete<{ Params: { id: string } }>(
+      "/categories/:id",
+      async (request, reply) => {
+        await prisma.category.delete({ where: { id: request.params.id } });
+        return reply.code(204).send();
+      }
+    );
+
+    // Deleta um artigo
+    api.delete<{ Params: { id: string } }>(
+      "/articles/:id",
+      async (request, reply) => {
+        await prisma.article.delete({ where: { id: request.params.id } });
+        return reply.code(204).send();
+      }
+    );
+
     // Lista artigos (opcionalmente filtrando por categoria via query ?categorySlug=)
     api.get<{ Querystring: { categorySlug?: string } }>(
       "/articles",
