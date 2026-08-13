@@ -9,6 +9,7 @@ export default function AdminPage() {
   const [metaDescription, setMetaDescription] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("");
+  const [coverImageUrl, setCoverImageUrl] = useState("");
 
   async function criarArtigo(e: React.FormEvent) {
     e.preventDefault();
@@ -24,6 +25,7 @@ export default function AdminPage() {
           categoryId: categoriaId,
           metaDescription,
           content,
+          coverImageUrl: coverImageUrl || undefined,
         }),
       });
 
@@ -95,6 +97,16 @@ export default function AdminPage() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">URL da imagem de capa</label>
+          <input
+            className="w-full border rounded p-2"
+            value={coverImageUrl}
+            onChange={(e) => setCoverImageUrl(e.target.value)}
+            placeholder="https://..."
           />
         </div>
 

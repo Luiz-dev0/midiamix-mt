@@ -1,5 +1,6 @@
 ﻿import Link from "next/link";
 import { getCategorias, getArtigos } from "../lib/api";
+import Carrossel from "./components/Carrossel";
 
 export async function generateStaticParams() {
   return [];
@@ -15,6 +16,8 @@ export default async function Home() {
     )
     .slice(0, 6);
 
+  const destaques = recentes.filter((a) => a.coverImageUrl);
+
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
       <h1 className="text-3xl font-semibold mb-2">
@@ -25,6 +28,13 @@ export default async function Home() {
         Reviews, comparativos e economia regional para o produtor e
         empresário de MT.
       </p>
+
+      {destaques.length > 0 && (
+        <div className="mb-16">
+          <h2 className="text-xl font-semibold mb-4">Destaques</h2>
+          <Carrossel artigos={destaques} />
+        </div>
+      )}
 
       <div className="grid sm:grid-cols-2 gap-4 mb-16">
         {categorias.map((cat) => (

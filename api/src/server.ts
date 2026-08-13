@@ -113,6 +113,7 @@ app.register(
         metaDescription: string;
         content: string;
         categoryId: string;
+        coverImageUrl?: string;
       };
     }>("/articles", async (request, reply) => {
       const article = await prisma.article.create({

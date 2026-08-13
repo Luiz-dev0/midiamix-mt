@@ -12,6 +12,7 @@ export type Artigo = {
   slug: string;
   metaDescription: string;
   content: string;
+  coverImageUrl?: string | null;
   categoryId: string;
   category?: Categoria;
   publishedAt: string | null;

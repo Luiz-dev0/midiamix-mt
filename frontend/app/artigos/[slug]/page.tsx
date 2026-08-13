@@ -31,6 +31,14 @@ export default async function ArtigoPage({
       )}
       <h1 className="text-3xl font-semibold mb-4">{artigo.title}</h1>
 
+      {artigo.coverImageUrl && (
+        <img
+          src={artigo.coverImageUrl}
+          alt={artigo.title}
+          className="w-full h-72 object-cover rounded-lg mb-6"
+        />
+      )}
+
       <div className="prose max-w-none">
         <p>{artigo.content}</p>
       </div>
