@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <SiteHeader categorias={categorias} />
         {children}
-        <SiteFooter />
+        <SiteFooter categorias={categorias} />
       </body>
     </html>
   );
