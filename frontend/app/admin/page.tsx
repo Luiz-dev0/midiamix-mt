@@ -16,7 +16,7 @@ export default function AdminPage() {
     setStatus("Salvando...");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "/api"}/articles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
