@@ -20,7 +20,7 @@ export type Artigo = {
 
 async function safeFetch<T>(url: string, fallback: T): Promise<T> {
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) {
       console.error(`Fetch falhou (${res.status}):`, url);
       return fallback;
