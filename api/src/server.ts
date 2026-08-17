@@ -150,7 +150,7 @@ app.register(
         });
 
         exec(
-          "npm run build --prefix ./frontend",
+          "rm -rf ./frontend/.next/cache && npm run build --prefix ./frontend",
           (err, stdout, stderr) => {
             if (err) {
               app.log.error({ err, stderr }, "Falha no rebuild do Next.js");
